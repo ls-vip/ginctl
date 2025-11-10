@@ -10,18 +10,6 @@ package {{.packageName}}
 import "github.com/gin-gonic/gin"
 {{end -}}
 {{if and .wire .file}}
-{{if eq .fileName "provider" -}}
-import "github.com/google/wire"
-
-var ProviderSet = wire.NewSet(
-	New{{.PackageName}}Handler,
-	New{{.PackageName}}Router,
-	New{{.PackageName}}Dao,
-	New{{.PackageName}}Service,
-	//New{{.PackageName}}Cache,
-){{- end -}}
-
-{{- if ne .fileName "provider" -}}
 type I{{.PackageName}}{{.FileName}} interface {
     {{if eq .fileName "router" -}}
     Router(r *gin.Engine)
@@ -42,7 +30,7 @@ func New{{.PackageName}}{{.FileName}}({{.param}} {{.di}}) I{{.PackageName}}{{.Fi
 }
 
 {{if eq .fileName "router" -}}
-func (router {{.packageName}}{{.FileName}}) Router(r *gin.Engine) {
+func (router *{{.packageName}}{{.FileName}}) Router(r *gin.Engine) {
 
 }
 {{- end}}
@@ -52,6 +40,6 @@ func (router {{.packageName}}{{.FileName}}) Router(r *gin.Engine) {
 func Router(r *gin.Engine) {
 
 }
-{{- end}}
+
 {{- end}}
 {{- end}}

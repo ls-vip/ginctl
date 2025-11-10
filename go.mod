@@ -1,4 +1,4 @@
-module github.com/chnls/ginctl
+module github.com/ls-vip/ginctl
 
 go 1.20
 

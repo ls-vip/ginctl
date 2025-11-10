@@ -25,7 +25,7 @@ func main() {
 	app.Name = "ginctl"
 	app.Usage = "generate app module"
 	app.UsageText = "ginctl new [-di -u username] app [package]"
-	app.Version = "1.0.0"
+	app.Version = "1.1.0"
 	app.Commands = []*cli.Command{
 		newCmd(),
 		initCmd(),

@@ -43,9 +43,9 @@ func createFile(wire bool, app, packageName, author string) error {
 		"author":      author,
 	}
 
-	var filenames = []string{"admin", "app", "dao", "router", "serializer", "service"}
+	var filenames = []string{"admin", "app", "repo", "router", "serializer", "service"}
 	if wire {
-		filenames = append(filenames, "handler", "provider")
+		filenames = append(filenames, "handler")
 	}
 
 	var pre = "I"
@@ -56,14 +56,14 @@ func createFile(wire bool, app, packageName, author string) error {
 		genMap["FileName"] = tmplName
 		switch filename {
 		case "handler":
+			genMap["file"] = true
 			genMap["param"] = "svc"
 			genMap["di"] = concat(pre, packageUpperName, "Service")
-			genMap["file"] = true
 		case "service":
-			genMap["param"] = "dao"
-			genMap["di"] = concat(pre, packageUpperName, "Dao")
 			genMap["file"] = true
-		case "dao":
+			genMap["param"] = "repo"
+			genMap["di"] = concat(pre, packageUpperName, "Repo")
+		case "repo":
 			genMap["file"] = true
 			genMap["param"] = ""
 			genMap["di"] = ""
@@ -71,8 +71,6 @@ func createFile(wire bool, app, packageName, author string) error {
 			genMap["file"] = true
 			genMap["param"] = "handler"
 			genMap["di"] = concat(pre, packageUpperName, "Handler")
-		case "provider":
-			genMap["file"] = true
 		}
 
 		err = createGoFiles(newFileDir, filename, "file.tpl", genMap)
